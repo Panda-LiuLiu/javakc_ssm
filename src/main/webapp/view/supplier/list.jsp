@@ -1,23 +1,71 @@
 <%@ page language="java" contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-	<head>
-		<title>供应商展示页面</title>
-		<%@ include file="../../common/jsp/header.jsp"%>
-	</head>
-	<body>
-		<div class="wrapper wrapper-content animated fadeInRight">
-			<div class="ibox float-e-margins">
-				<form id="searchForm" action="${path }/test/query.do">
-					<div class="col-md-6">
-						<div class="input-group input-group-lg">
-							<span class="input-group-addon" id="sizing-addon1"></span>
-							<input type="text" class="form-control" placeholder="Username" aria-describedby="sizing-addon1">
-						</div>
+<head>
+	<title>供应商展示列表页面</title>
+	<%@ include file="../../common/jsp/header.jsp"%>
+</head>
+<body>
+<div class="wrapper wrapper-content animated fadeInRight">
+	<div class="ibox float-e-margins">
+		<form id="searchForm" action="${path }/test/queryTest.do">
+			<div class="col-sm-12">
+				<!-- ------------按钮组 start------------ -->
+				<div class="alert alert-success" role="alert">供应商详细信息</div>
+				<div class="col-sm-8">
+					<div class="btn-group hidden-xs" role="group">
+						<button type="button" class="btn btn-primary" data-toggle="modal" id="create" name="test/create.jsp">
+							<i class="glyphicon glyphicon-plus" aria-hidden="true"></i>添加
+						</button>
+						<button type="button" class="btn btn-success" data-toggle="modal" id="update" name="test/view.do">
+							<i class="glyphicon glyphicon-pencil" aria-hidden="true"></i>修改
+						</button>
+						<button type="button" class="btn btn-danger" data-toggle="modal" id="delete" name="test/delete.do">
+							<i class="glyphicon glyphicon-trash" aria-hidden="true"></i>删除
+						</button>
 					</div>
-					<div class="col-md-6">3</div>
-			     </form>
+				</div>
+				<div class="col-sm-4">
+					<input class="form-control" id="search" name="testName" value="${testEntity.testName }" type="text" placeholder="查询内容 回车搜索"/>
+				</div>
+				<!-- ------------按钮组 end------------ -->
+				<input id="pageNo" name="pageNo" type="hidden" value="${page.pageNo}"/>
+				<input id="pageSize" name="pageSize" type="hidden" value="${page.pageSize}"/>
+				<table class="table table-striped table-bordered table-hover table-condensed">
+					<thead>
+					<tr>
+						<th><input type="checkbox" id="checkall"/></th>
+						<th>供应商编码</th>
+						<th>供应商名称</th>
+						<th>供应商类型</th>
+						<th>联系人</th>
+						<th>联系电话</th>
+						<th>必须合同</th>
+						<th>是否启用门户</th>
+						<th>操作</th>
+					</tr>
+					</thead>
+					<tbody>
+					<c:set var="vs"></c:set>
+					<c:forEach var="e" items="${page.list }" varStatus="v">
+						<tr>
+							<td><input type="checkbox" name="ids" value="${e.supplierId }"/></td>
+							<td>${e.supplierCode }</td>
+							<td>${e.supplierName}</td>
+							<td>${e.supplierType}</td>
+							<td>${e.supplierContact}</td>
+							<td>${e.supplierContactTel}</td>
+							<td>${e.supplierIscontract}</td>
+							<td>${e.supplierIsenableportal}</td>
+
+						</tr>
+					</c:forEach>
+					</tbody>
+				</table>
+				<div class="page">${page}</div>
 			</div>
-		</div>
-	</body>
+		</form>
+	</div>
+</div>
+</body>
 </html>
